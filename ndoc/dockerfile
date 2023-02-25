@@ -17,8 +17,8 @@ RUN echo "npm版本: $(npm -v)"
 RUN npm i
 
 # 复制源代码
-# COPY . .
-COPY dist/ .
+COPY . .
+#COPY dist/ .
 
 # 构建生产环境代码
 RUN npm run build
