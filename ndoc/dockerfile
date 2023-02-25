@@ -18,7 +18,7 @@ RUN npm i
 
 # 复制源代码
 COPY . .
-#COPY dist/ . 测试推送
+#COPY dist/ . 测试推送cc
 
 # 构建生产环境代码
 RUN npm run build
