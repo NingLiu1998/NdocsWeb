@@ -22,7 +22,7 @@ import type { MenuItem } from './NavTypes';
 
 //传过去
 const emit = defineEmits(['changeMenu']);
-const changeMenu = (com: string) => {
+const changeMenu = (com?: string) => {
     emit('changeMenu', com)
 };
 
