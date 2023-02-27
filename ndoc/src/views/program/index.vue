@@ -23,9 +23,9 @@
 
 <script setup lang='ts'>
 import { ref, onMounted, reactive, getCurrentInstance, defineAsyncComponent, shallowRef, markRaw } from 'vue';
-import  NavigationMenu from '../../components/Nav/NavigationMenu.vue'
+import NavigationMenu from '../../components/Nav/NavigationMenu.vue'
 import type NavigationSideMenu from '../../components/Nav/NavigationSideMenu.vue'
-import {axios,service} from "../../utils/http"
+import { api } from "../../utils/http"
 import { u } from '@/utils/util';
 onMounted(() => {
 })
@@ -57,7 +57,7 @@ const changeMenu = (com: string) => {
 
     //
 
-    
+
 }
 
 //菜单导航数据

@@ -1,5 +1,5 @@
-import { fa } from "element-plus/es/locale";
-
+//import { fa } from "element-plus/es/locale";
+//这里是typescript学习Demo
 let str: string = '你好';
 let num: number = 100;
 let b: boolean = true;

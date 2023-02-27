@@ -7,6 +7,7 @@ import router from './router'
 // import config from './config';
 //全局样式
 import "./assets/styles/base.scss"
+import '@/assets/styles/element/index.scss';
 
 //icon
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -15,6 +16,7 @@ const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
+
 
 // app.use(config);
 // app.provide('request', RequestService);

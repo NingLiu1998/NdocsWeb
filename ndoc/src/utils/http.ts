@@ -1,47 +1,81 @@
 // http.ts
-import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios'
-import qs from "qs"
+import type { AxiosResponse } from 'axios'
+//import qs from "qs"
 import { ElNotification } from "element-plus"
 import 'element-plus/dist/index.css'
 import { u } from './util'
-import type { registerModel } from './types'
+import type { reqRegisterUserType } from './types_api'
+import Request from './service/req';
+import type { RequestConfig } from './service/types';
 
+//参考：https://juejin.cn/post/7071518211392405541
 
-// 这边由于后端没有区分测试和正式，姑且都写成一个接口。
-axios.defaults.baseURL = "http://localhost:8081";
-// 携带 cookie，对目前的项目没有什么作用，因为我们是 token 鉴权
-axios.defaults.withCredentials = true
-// 请求头，headers 信息
-// axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
-// axios.defaults.headers['token'] = localStorage.getItem('token') || ''
-// 默认 post 请求，使用 application/json 形式
-axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8'
-axios.defaults.headers.get['Content-Type'] = 'application/json; charset=utf-8'
-
-
-axios.interceptors.response.use(
-    response => {
-        console.log(response);
-        if (response.status == 200) {
-            return Promise.resolve(response.data.data);
-        } else {
-            u.NoticeNo(response.data.errors, 'api请求返回非200')
-            return Promise.reject(response);
-        }
+const request = new Request({
+    baseURL: import.meta.env.BASE_URL,
+    timeout: 1000 * 60 * 5,
+    interceptors: {
+        // 请求拦截器
+        requestInterceptors: config => config,
+        // 响应拦截器
+        responseInterceptors: (result: AxiosResponse) => {
+            return result
+        },
     },
-    error => {
-        u.NoticeNo('代码发霉了', 'api请求发生了错误');
+})
+
+//api接口正常返回最原始数据结构
+export interface BaseResponse<T> {
+    statusCode: number
+    data: T
+    succeeded: boolean
+    errors?: any
+    extras?: any
+    timestamp: number
+}
+
+
+interface BaseRequestConfig<T, R> extends RequestConfig<BaseResponse<R>> {
+    //这里就是请求data
+    data?: T
+}
+
+
+/**
+ * @description: 函数的描述
+ * @interface D 请求参数的interface
+ * @interface T 响应结构的intercept
+ * @param {BaseRequestConfig} config 不管是GET还是POST请求都使用data
+ * @returns {Promise}
+ */
+const http = <D = any, T = any>(config: BaseRequestConfig<D, T>) => {
+    const { method = 'GET' } = config
+    if (method === 'get' || method === 'GET') {
+        config.params = config.data
     }
-)
+    return request.request<BaseResponse<T>>(config)
+}
+class baseService {
+    public static get = <Req = any, Res = any>(url: string, data: Req) => {
+        return http<Req, Res>({
+            url: url,
+            method: 'GET',
+            data: data
+        })
+    }
 
-
-
-
+    public static post = <Req = any, Res = any>(url: string, data: Req) => {
+        return http<Req, Res>({
+            url: url,
+            method: 'POST',
+            data: data
+        })
+    }
+}
 
 //通用服务
-class service {
-    static register = (uInfo: registerModel) => {
-        axios.post('/api/system/register', {
+class api extends baseService {
+    static register = (uInfo: reqRegisterUserType) => {
+        this.post('/api/system/register', {
             params: uInfo
         }).then(res => {
             u.NoticeOk('账号注册成功')
@@ -50,4 +84,21 @@ class service {
     }
 }
 
-export { axios, service }
+export { http, api }
+
+
+
+//示例：自定义拦截和返回
+//         interceptors: {
+//             requestInterceptors(res) {
+//                 console.log('接口请求拦截')
+
+//                 return res
+//             },
+//             responseInterceptors(result) {
+//                 console.log('接口响应拦截')
+//                 return result
+//             },
+//         },
+//     })
+// }

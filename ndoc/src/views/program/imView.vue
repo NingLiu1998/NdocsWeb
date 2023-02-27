@@ -42,6 +42,10 @@
                             {{ msg.msg.content }}
                         </div>
                     </div>
+                    <div class="sendMsg">
+                        <el-input v-model="content" placeholder="发送内容" />
+                        <el-button v-if="wsStatus == WsStatus.已连接" type="success">发送</el-button>
+                    </div>
                 </el-card>
             </el-col>
             <el-col :span="8">
@@ -54,7 +58,7 @@
 <script setup lang='ts'>
 import { Service } from '@element-plus/icons-vue';
 import { ref, onMounted, reactive } from 'vue';
-import { axios, service } from "../../utils/http"
+import { http, api } from "../../utils/http"
 import { u } from "../../utils/util"
 
 enum WsStatus {
@@ -72,6 +76,7 @@ const wsClientId = ref("");
 const wsStatus = ref(WsStatus.未连接);
 const isSaveWsId = ref(false);
 const currentChan = ref(lstChan[1].name);
+const content = ref("在这里输入要发送的内容");
 const lstMessage = reactive([
     {
         name: "系统",
@@ -87,10 +92,10 @@ const lstMessage = reactive([
 
 
 const getWs = () => {
-    axios.get<any, string, any>('/api/im/ws-address/' + wsClientId.value,)
-        .then(address => {
-            console.log("地址", address);
-            let websock = new WebSocket(address);
+    api.get<any, string>('/api/im/ws-address/' + wsClientId.value, { t: 1 })
+        .then(res => {
+            console.log("最前", res);
+            let websock = new WebSocket(res?.data);
             // 客户端接收服务端数据时触发
             websock.onmessage = (e) => {
                 u.NoticeOk(e.data, 'websocket 调试');
@@ -105,7 +110,7 @@ const getWs = () => {
 
                 //判断是否需要注册账号
                 if (isSaveWsId.value) {
-                    service.register({ wsClientId: wsClientId.value });
+                    api.register({ wsClientId: wsClientId.value });
                 }
             }
 
@@ -131,10 +136,10 @@ const getWsId = () => {
         wsClientId.value = wsId;
     } else {
         //获取新的WS客户端ID
-        axios.get<string, string>('/api/im/client-id')
-            .then(newWsId => {
-                wsClientId.value = newWsId;
-                localStorage.setItem('wsId', newWsId);
+        api.get<any, string>('/api/im/client-id', {})
+            .then(res => {
+                wsClientId.value = res.data;
+                localStorage.setItem('wsId', wsClientId.value);
             });
     }
 }
@@ -143,7 +148,7 @@ const joinChan = (chan: string) => {
 
     if (chan?.length <= 0) { chan = currentChan.value };
 
-    axios.post('/api/im/join-chan', { params: { wsId: wsClientId.value, chan: chan } })
+    api.post('/api/im/join-chan', { wsId: wsClientId.value, chan: chan })
         .then(res => {
             console.log(res);
             u.NoticeNo('成功加入群组');
@@ -151,14 +156,12 @@ const joinChan = (chan: string) => {
 }
 
 const sendMsg = (msg: string, chan: string) => {
-    axios.get('/api/im/send-chan-msg', {
-        params: {
-            wsId: wsClientId.value,
-            chan: chan,
-            msg: {
-                code: "text",
-                content: msg
-            }
+    api.get('/api/im/send-chan-msg', {
+        wsId: wsClientId.value,
+        chan: chan,
+        msg: {
+            code: "text",
+            content: msg
         }
     }).then(res => {
         console.log('群组发送消息', res);

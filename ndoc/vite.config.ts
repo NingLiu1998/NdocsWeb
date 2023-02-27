@@ -15,7 +15,10 @@ const path = require('path')
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(), vueJsx(),
+    vue({
+      // 默认开启响应性语法糖
+      reactivityTransform: true
+    }), vueJsx(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
