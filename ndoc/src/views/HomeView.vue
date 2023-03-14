@@ -1,11 +1,14 @@
 <template>
   <main>
-    <div class="content">
+    <div class="slides">
       <h1>Proletarier aller Länder, vereinigt euch!</h1>
       <h5>Aufhebung des Privateigentums</h5>
       <el-row class="btns">
-        <p>网络曾用名：宁骑（编程圈）/CTU（游戏圈）/新田（ACGN圈），家里有两只猫，码龄~八年，B/S 方向</p>
-        <p>热衷免费参与和开发各种以非盈利为最终目的大大小小项目</p>
+        <p>信息：宁骑，开发者，现年25</p>
+        <p>后端：Csharp,wpf,dotNet,rust,golang,java,nodejs,python</p>
+        <p>前端：Vue3,Vite,Typescript,react</p>
+        <p>业余：[unity3d] [骑砍一服务端开发] [骑砍二模组开发] [Mineccraft插件/服务器官网开发] [针对游戏进行QQ机器人开发]</p>
+        <p>爱好：参与兴趣开发，养猫，养狗，Bilibili</p>
         <p></p>
       </el-row>
       <div class="projects">
@@ -20,6 +23,10 @@
         </div>
       </div>
     </div>
+    <div class="slides">
+      测试
+    </div>
+
   </main>
 </template>
 <script setup lang="ts">
@@ -33,10 +40,10 @@ body {
 }
 
 main {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
+  // display: flex;
+  // align-items: center;
+  // flex-direction: column;
+  transition: all .5s;
 
   .projects {
     margin: 1vh 0;
@@ -46,31 +53,47 @@ main {
     gap: 1vh;
 
     &-item {
+      cursor: pointer;
       border: .5vh solid var(--color2);
       min-width: 15vh;
       padding: 1vh;
       border-radius: 1vh;
       text-align: center;
+      transition: all .5s;
+
+      &:hover {
+        border: .5vh solid var(--color2);
+        color: var(--color1);
+        background: var(--color2);
+      }
     }
 
   }
 
-  .content {
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+
+  .slides {
     width: 100%;
+    height: 100vh;
     display: flex;
     align-items: center;
-    // background: var(--color1);
     color: var(--color2);
-    justify-content: space-evenly;
+    justify-content: center;
     font-size: 2.5vh;
     flex-direction: column;
     flex-wrap: nowrap;
-    border-radius: 1vh;
+    // border-radius: 1vh;
+    scroll-snap-align: start;
+    // background: linear-gradient(454deg, var(--color2), var(--color1));
+    background: var(--color1);
+    transition: all .5s;
 
     .btns {
       margin: 5vh 0;
       display: flex;
-      align-items: center;
+      align-items: left;
       flex-direction: column;
     }
   }

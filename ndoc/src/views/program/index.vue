@@ -36,11 +36,14 @@ onMounted(() => {
 const imView = defineAsyncComponent(() => import('./imView.vue'));
 const startView = defineAsyncComponent(() => import('./start.vue'));
 const writeVue = defineAsyncComponent(() => import('./write.vue'));
+const codeViewView = defineAsyncComponent(() => import('./codeView.vue'));
+
 
 const commponentMap: any = {
     "startView": markRaw(startView),
     "imView": markRaw(imView),
-    "writeVue": markRaw(writeVue)
+    "writeVue": markRaw(writeVue),
+    "codeViewView": markRaw(codeViewView)
 };
 
 const comId = shallowRef(startView);
@@ -54,10 +57,6 @@ const changeMenu = (com: string) => {
         comId.value = commponentMap[com];
         console.log(com)
     }
-
-    //
-
-
 }
 
 //菜单导航数据
@@ -76,7 +75,10 @@ const menus = reactive([
                 isChildren: true,
                 children: [
                     { name: "笔记" },
-                    { name: "实例展示", children: [{ name: 'IM', com: 'imView' }] }
+                    { name: "实例展示", children: [
+                        { name: '即时通讯', com: 'imView' },
+                        { name: '可视化逻辑', com: 'codeViewView' },
+                    ] }
 
                 ]
             },

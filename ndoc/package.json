@@ -10,6 +10,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@antv/x6": "^2.5.1",
     "@element-plus/icons-vue": "^2.0.10",
     "@kangc/v-md-editor": "^2.3.15",
     "@vavt/md-editor-extension": "^1.5.0",

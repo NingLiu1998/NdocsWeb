@@ -25,10 +25,10 @@ const mainMenus: resMainMenuType[] = reactive([
   },
   { title: "编程", url: "/program/" },
   {
-    title: "元宇宙", url: "/program/", children: [
-      { title: "喵星" },
-      { title: "汪星" },
-      { title: "Ta变成星星在看着我" },
+    title: "元宇宙", url: "/universe/", children: [
+      { title: "喵星", url: "/universe/cat" },
+      { title: "汪星", url: "/universe/dog" },
+      { title: "繁星", url: "/universe/any" },
     ]
   }
 ]);
@@ -88,6 +88,7 @@ const mainMenus: resMainMenuType[] = reactive([
       top: 5vh;
       z-index: 20;
       align-content: flex-end;
+
       .nav-menu {
         background: var(--color2);
         color: var(--color1);
