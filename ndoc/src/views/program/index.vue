@@ -33,10 +33,14 @@ onMounted(() => {
 // import imView from './imView.vue';
 // import start from './start.vue';
 
-const imView = defineAsyncComponent(() => import('./imView.vue'));
-const startView = defineAsyncComponent(() => import('./start.vue'));
-const writeVue = defineAsyncComponent(() => import('./write.vue'));
-const codeViewView = defineAsyncComponent(() => import('./codeView.vue'));
+
+//const MyComponent = defineAsyncComponent(() => import(/* webpackPrefetch: true */ './MyComponent.vue'));
+
+
+const imView = defineAsyncComponent(() => import(/* webpackPrefetch: true */'./imView.vue'));
+const startView = defineAsyncComponent(() => import(/* webpackPrefetch: true */'./start.vue'));
+const writeVue = defineAsyncComponent(() => import(/* webpackPrefetch: true */'./write.vue'));
+const codeViewView = defineAsyncComponent(() => import(/* webpackPrefetch: true */'./codeView.vue'));
 
 
 const commponentMap: any = {
