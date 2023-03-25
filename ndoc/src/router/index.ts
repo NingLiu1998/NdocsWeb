@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import NProgress from 'nprogress'
+
 // import { clearPending } from "../utils/http";
 
 const router = createRouter({
@@ -43,8 +45,13 @@ router.beforeEach((to, from, next) => {
   //在跳转路由之前，先清除所有的请求
   // clearPending()
   // ...
+  NProgress.start(); // 开始加载指示器
   next()
 })
+
+router.afterEach(() => {
+  NProgress.done(); // 完成加载指示器
+});
 
 
 export default router

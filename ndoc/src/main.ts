@@ -8,7 +8,7 @@ import router from './router'
 //全局样式
 import "./assets/styles/base.scss"
 import '@/assets/styles/element/index.scss';
-
+import 'nprogress/nprogress.css'
 //icon
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 

@@ -42,4 +42,8 @@ const addNode = (shape: string, x: number, y: number, w: number, h: number) => {
 
 
 </script>
-<style scoped lang='scss'></style>
+<style scoped lang='scss'>
+.index {
+    
+}
+</style>

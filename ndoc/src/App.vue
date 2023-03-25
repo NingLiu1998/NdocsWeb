@@ -43,7 +43,14 @@ const mainMenus: resMainMenuType[] = reactive([
           <RouterLink :to="m.url">{{ m.title }}</RouterLink>
         </div>
       </nav>
-      <RouterView />
+      <!-- <RouterView /> -->
+      <router-view v-slot="{ Component }">
+        <transition>
+          <keep-alive>
+            <component :is="Component" />
+          </keep-alive>
+        </transition>
+      </router-view>
     </div>
     <!-- 从下弹出的菜单 -->
     <el-drawer v-model="drawerB" direction="btt">
