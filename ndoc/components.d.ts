@@ -37,5 +37,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserRegister: typeof import('./src/components/user/userRegister.vue')['default']
+    'WaterFallVue ': typeof import('./src/components/waterFallVue .vue')['default']
   }
 }

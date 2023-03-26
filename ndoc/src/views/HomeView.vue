@@ -1,101 +1,80 @@
 <template>
-  <main>
-    <div class="slides">
-      <h1>Proletarier aller Länder, vereinigt euch!</h1>
-      <h5>Aufhebung des Privateigentums</h5>
-      <el-row class="btns">
-        <p>信息：宁骑，开发者，现年25</p>
-        <p>后端：Csharp,wpf,dotNet,rust,golang,java,nodejs,python</p>
-        <p>前端：Vue3,Vite,Typescript,react</p>
-        <p>业余：[unity3d] [骑砍一服务端开发] [骑砍二模组开发] [Mineccraft插件/服务器官网开发] [针对游戏进行QQ机器人开发]</p>
-        <p>爱好：参与兴趣开发，养猫，养狗，Bilibili</p>
-        <p></p>
-      </el-row>
-      <div class="projects">
-        <div class="projects-item">
-          网站收纳
-        </div>
-        <div class="projects-item">
-          私有B站
-        </div>
-        <div class="projects-item">
-          系统模拟
-        </div>
-      </div>
-    </div>
-    <div class="slides">
-      测试
-    </div>
-
-  </main>
+  <div class="block-area" ref="area">
+    <waterFallVue :list="list"></waterFallVue>
+  </div>
 </template>
-<script setup lang="ts">
-import { ref } from 'vue'
 
-</script>
+<script setup lang='ts'>
+import { ref, onMounted, reactive, toRef, onBeforeMount } from 'vue';
+import waterFallVue from '@/components/waterFallVue .vue';
 
-<style lang="scss" scoped>
-body {
-  // background: #800020;
+interface StyleObject {
+  height: number;
+  width: number;
+  background: string;
+  title: string;
 }
 
-main {
-  // display: flex;
-  // align-items: center;
-  // flex-direction: column;
-  transition: all .5s;
+const list: StyleObject[] = reactive([]);
 
-  .projects {
-    margin: 1vh 0;
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    gap: 1vh;
+const getRandomNumber = (): number => {
+  const min = 100;
+  const max = 250;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-    &-item {
-      cursor: pointer;
-      border: .5vh solid var(--color2);
-      min-width: 15vh;
-      padding: 1vh;
-      border-radius: 1vh;
-      text-align: center;
-      transition: all .5s;
+const getRandomColor = (): string => {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
-      &:hover {
-        border: .5vh solid var(--color2);
-        color: var(--color1);
-        background: var(--color2);
-      }
-    }
+
+
+
+//必须要再组件加载前执行
+onBeforeMount(() => {
+  for (let index = 0; index < 100; index++) {
+    list.push({
+      height: getRandomNumber(),
+      width: getRandomNumber(),
+      background: getRandomColor(),
+      title: "空间"
+    })
 
   }
 
+})
+
+
+
+
+
+// const divs = (el: HTMLElement) => {
+//   // 断言为HTMLElement类型的数组
+//   if (el)
+//     (arrBlock.value as Array<HTMLElement>).push(el);
+// };
+</script>
+<style scoped lang='scss'>
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.block-area {
+  transition: all .5s;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   height: 100vh;
-
-  .slides {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    color: var(--color2);
-    justify-content: center;
-    font-size: 2.5vh;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    // border-radius: 1vh;
-    scroll-snap-align: start;
-    // background: linear-gradient(454deg, var(--color2), var(--color1));
-    background: var(--color1);
-    transition: all .5s;
-
-    .btns {
-      margin: 5vh 0;
-      display: flex;
-      align-items: left;
-      flex-direction: column;
-    }
-  }
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  // margin-left: 10vh;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
 }
 </style>

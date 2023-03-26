@@ -16,7 +16,7 @@ const registerForm: reqRegisterUserType = reactive({
 //主菜单 TOTD:改为请求api获取
 const mainMenus: resMainMenuType[] = reactive([
   {
-    title: "后台", url: "/", children: [
+    title: "首页", url: "/", children: [
       { title: "菜单", url: "/" },
       { title: "分类", url: "/" },
       { title: "密码", url: "/" },
@@ -73,12 +73,18 @@ const mainMenus: resMainMenuType[] = reactive([
 
 <style lang="scss">
 :root {
-  --mycolor-bgc: #Cad0ce;
-  --mycolor-2: #444c4e;
-  --mycolor-3: #93020b;
-
-  --color1: #800020;
-  --color2: #DCD2C6;
+  // --mycolor-bgc: #Cad0ce;
+  // --mycolor-2: #444c4e;
+  // --mycolor-3: #93020b;
+  // --color1: #800020;
+  // --color2: #DCD2C6;
+  --color-bgc:#F5F5F5;
+  --color-menu:#0D47A1;//
+  --color-card:#BBDEFB;
+  --color-text:#000000;
+  --color-subText:#9E9E9E;
+  --color-sub2Text:#DCD2C6;
+  --color-power:#800020;
 }
 
 .html {
@@ -97,8 +103,8 @@ const mainMenus: resMainMenuType[] = reactive([
       align-content: flex-end;
 
       .nav-menu {
-        background: var(--color2);
-        color: var(--color1);
+        background: #0D47A1;
+        color: #fff;
         border-radius: 1vh;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;

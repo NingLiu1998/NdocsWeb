@@ -17,12 +17,14 @@
     "axios": "^1.3.3",
     "babel-core": "^6.26.3",
     "element-plus": "^2.2.32",
+    "fullpage.js": "^4.0.19",
     "md-editor-v3": "^2.8.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.28",
     "qs": "^6.11.0",
     "sass": "^1.58.3",
     "vue": "^3.2.45",
+    "vue-fullpage.js": "^0.2.13",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
