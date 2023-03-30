@@ -92,15 +92,6 @@ const router = createRouter({
       ]
     },
     {
-      path: '/403',
-      name: 'Forbid',
-      component: () => import('../views/error/403/index.vue'),
-      meta: {
-        title: '禁止访问',
-        hidden: true
-      }
-    },
-    {
       path: '/github-login',
       name: 'GithubLogin',
       component: () => import('../views/github/login.vue'),
