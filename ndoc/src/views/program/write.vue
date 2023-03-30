@@ -1,6 +1,6 @@
 <template>
     <div class="md">
-        <md-editor v-model="text" :noPrettier="true" />
+        <md-editor v-model="text" :noPrettier="true" class="md-editor" />
         <div class="setting">
             <el-form :inline="true" :model="formInline" class="demo-form-inline">
                 <el-form-item label="标题">
@@ -12,6 +12,7 @@
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">发布</el-button>
                     <el-button type="primary" @click="onSubmit">草稿</el-button>
+                    <el-button type="primary" @click="$router.push('/github')" :icon="Upload">图床</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -19,15 +20,16 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, onMounted, reactive,toRaw } from 'vue';
+import { ref, onMounted, reactive, toRaw } from 'vue';
 import MdEditor from 'md-editor-v3';
+import { Upload } from '@element-plus/icons-vue'
 import 'md-editor-v3/lib/style.css';
 const text = ref('# Hello Editor');
 
 
 const optV = ref([])
 const handleChange = (value: any) => {
-    console.log('Selected:',toRaw(value));
+    console.log('Selected:', toRaw(value));
 }
 const props = {
     expandTrigger: 'hover' as const,
@@ -73,7 +75,12 @@ onMounted(() => {
 </script>
 <style scoped lang='scss'>
 .md {
-    margin: 10vh;
+    // margin: 0 10vh;
+    height: 100vh;
+
+    .md-editor {
+        // margin-top: -50px;
+    }
 
     .setting {
         margin-top: 2.5vh;

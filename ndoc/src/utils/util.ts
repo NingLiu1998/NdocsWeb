@@ -1,5 +1,5 @@
 
-import { ElNotification } from "element-plus"
+import { ElNotification, ElMessage } from "element-plus"
 
 export class u {
 
@@ -36,8 +36,36 @@ export class u {
         ElNotification({
             title: title,
             message: message,
-            type: type as any,
-            zIndex: 999
+            type: type
         })
+    }
+
+
+    static Message(message: any, type: string): void {
+        ElMessage({
+            message: message,
+            type: type
+        });
+    }
+
+    static MessageNo(message: string): void {
+        ElMessage({
+            message: message,
+            type: 'danger'
+        });
+    }
+
+    static MessageWarning(message: string): void {
+        ElMessage({
+            message: message,
+            type: 'warning'
+        });
+    }
+
+    static MessageOk(message: string): void {
+        ElMessage({
+            message: message,
+            type: 'success'
+        });
     }
 }

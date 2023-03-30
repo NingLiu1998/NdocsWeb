@@ -18,8 +18,8 @@ interface StyleObject {
 const list: StyleObject[] = reactive([]);
 
 const getRandomNumber = (): number => {
-  const min = 100;
-  const max = 250;
+  const min = 200;
+  const max = 500;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 

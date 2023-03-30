@@ -11,14 +11,22 @@ import type { RequestConfig } from './service/types';
 //参考：https://juejin.cn/post/7071518211392405541
 
 const request = new Request({
-    baseURL: import.meta.env.BASE_URL,
+    baseURL: import.meta.env.VITE_BASE_API,
     timeout: 1000 * 60 * 5,
     interceptors: {
         // 请求拦截器
         requestInterceptors: config => config,
         // 响应拦截器
         responseInterceptors: (result: AxiosResponse) => {
-            return result
+            console.log('result=========>', result)
+            const { status, data } = result
+            const { statusCode, timestamp, errors } = data as BaseResponse<Object>
+            if (status == 0 || status == 200 || status == 201 || statusCode == 0 || statusCode == 200 || statusCode == 201) {
+                // u.MessageOk('success')
+                return data
+            }
+            u.MessageNo('请求出错！')
+            return Promise.reject(errors || 'unkonow error')
         },
     },
 })

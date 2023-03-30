@@ -1,7 +1,7 @@
 <template>
     <div class="wraps">
         <div :style="{ height: item.height + 'px', background: item.background, top: item.top + 'px', left: item.left + 'px' }"
-            v-for="item in waterList" class="items">
+            v-for="(item,index) in waterList" class="items " :key="index">
             {{ item.title }}
         </div>
     </div>
@@ -38,10 +38,9 @@ const init = () => {
             props.list[i].left = index * (width - 5);
             heightList[index] = (heightList[index] + props.list[i].height + 5);
             waterList.push(props.list[i])
-
         }
     }
-    console.log(props.list)
+    // console.log(props.list)
 }
 
 onMounted(() => {
@@ -64,12 +63,12 @@ onMounted(() => {
         justify-content: center;
         color: #fff;
         font-weight: bold;
-        transition: all .3s;
+        transition: all .2s;
         cursor: pointer;
         transform: scale(1);
 
         &:hover {
-            box-shadow: 1px 1px 10px 2px rgba(50, 49, 48,.5);
+            box-shadow: 1px 1px 10px 2px rgba(50, 49, 48, .3),-1px -1px 10px 2px rgba(50, 49, 48, .3);
             transform: scale(1.1);
             z-index: 100;
         }

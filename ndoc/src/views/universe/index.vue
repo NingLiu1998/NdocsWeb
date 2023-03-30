@@ -31,7 +31,7 @@ onMounted(() => {
     align-items: center;
     flex-direction: row;
     gap: 5vh;
-    min-height: 850px;
+    min-height: 100vh;
     margin: 0 5vh;
 
     &-card {
@@ -47,7 +47,7 @@ onMounted(() => {
         border-radius: 2.5vh;
         box-shadow: 0px 0px 14px 8px rgb(0 0 0 / 54%);
         transform: scale(1);
-        transition: all 0.5s;
+        transition: all 0.3s;
         height: 450px;
         cursor: pointer;
 

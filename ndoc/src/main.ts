@@ -6,6 +6,7 @@ import router from './router'
 // import RequestService from './utils/request';
 // import config from './config';
 //全局样式
+import "uno.css"; // unocss
 import "./assets/styles/base.scss"
 import '@/assets/styles/element/index.scss';
 import 'nprogress/nprogress.css'
